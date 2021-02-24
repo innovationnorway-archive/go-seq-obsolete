@@ -4,10 +4,68 @@ All URIs are relative to *https://localhost:80*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DowngradeLicense**](LicensesApi.md#DowngradeLicense) | **Post** /api/licenses/downgrade | Remove the current license, causing the server to fall back to the default configuration.
 [**GetLicense**](LicensesApi.md#GetLicense) | **Get** /api/licenses/{id} | Retrieve the license with the given id
 [**ListLicenses**](LicensesApi.md#ListLicenses) | **Get** /api/licenses/ | Retrieve licenses
 [**UpdateLicense**](LicensesApi.md#UpdateLicense) | **Put** /api/licenses/{id} | Update an existing license
 
+
+
+## DowngradeLicense
+
+> DowngradeLicense(ctx).Execute()
+
+Remove the current license, causing the server to fall back to the default configuration.
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LicensesApi.DowngradeLicense(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LicensesApi.DowngradeLicense``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDowngradeLicenseRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetLicense
