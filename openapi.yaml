@@ -1,0 +1,791 @@
+openapi: 3.0.1
+
+info:
+  title: Seq API
+  version: "1.0"
+
+servers:
+  - url: https://localhost:80
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: apikeys
+  - name: settings
+  - name: licenses
+
+paths:
+  # apikeys
+  /api/apikeys/:
+    get:
+      summary: Retrieve API keys
+      operationId: listApiKeys
+      parameters:
+        - name: ownerId
+          description: If the id of a user is provided, only API keys owned by them will be included in the result; if not specified, personal API keys for all owners will be listed
+          in: query
+          schema:
+            type: string
+          required: false
+        - name: shared
+          description: If true, shared API keys will be included in the result
+          in: query
+          schema:
+            type: boolean
+          required: false
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiKey"
+      tags:
+        - apikeys
+    post:
+      summary: Add a new API key
+      operationId: addApiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiKey"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - apikeys
+  /api/apikeys/{id}:
+    parameters:
+      - name: id
+        description: The id of the API key
+        in: path
+        schema:
+          type: string
+        required: true
+    delete:
+      summary: Remove an existing API key
+      operationId: deleteApiKey
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      tags:
+        - apikeys
+    get:
+      summary: Retrieve the API key with the given id
+      operationId: getApiKey
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - apikeys
+    put:
+      summary: Update an existing API key
+      operationId: updateApiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiKey"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not Found
+      tags:
+        - apikeys
+
+  # settings
+  /api/settings/{id}:
+    parameters:
+      - name: id
+        description: The id of the setting
+        in: path
+        schema:
+          type: string
+        required: true
+    get:
+      summary: Retrieve the setting with the given id
+      operationId: getSetting
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Setting"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - settings
+    put:
+      summary: Update an existing setting
+      operationId: updateSetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Setting"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Setting"
+        "404":
+          description: Not Found
+      tags:
+        - settings
+
+  # licenses
+  /api/licenses/:
+    get:
+      summary: Retrieve licenses
+      operationId: listLicenses
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/License"
+      tags:
+        - licenses
+  /api/licenses/{id}:
+    parameters:
+      - name: id
+        description: The id of the license
+        in: path
+        schema:
+          type: string
+        required: true
+    get:
+      summary: Retrieve the license with the given id
+      operationId: getLicense
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/License"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - licenses
+    put:
+      summary: Update an existing license
+      operationId: updateLicense
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/License"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/License"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not Found
+      tags:
+        - licenses
+
+components:
+  schemas:
+    Error:
+      properties:
+        Error:
+          type: string
+          readOnly: true
+
+    # apikeys
+    ApiKey:
+      properties:
+        AssignedPermissions:
+          type: array
+          items:
+            type: string
+            enum:
+              - Ingest
+              - Read
+              - Setup
+              - Write
+        Id:
+          type: string
+          readOnly: true
+        # InputMetrics:
+        InputSettings:
+          properties:
+            # AppliedProperties:
+            # Filter:
+            MinimumLevel:
+              type: string
+              enum:
+                - Verbose
+                - Debug
+                - Information
+                - Warning
+                - Error
+                - Fatal
+            UseServerTimestamps:
+              type: boolean
+        IsDefault:
+          type: boolean
+          readOnly: true
+        OwnerId:
+          type: string
+        Title:
+          type: string
+        Token:
+          type: string
+        TokenPrefix:
+          type: string
+          readOnly: true
+      required:
+        - Title
+
+    # settings
+    AuthenticationProvider:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-authenticationprovider
+        Name:
+          type: string
+          enum:
+            - authenticationprovider
+        Value:
+          type: string
+    AutomaticallyProvisionAuthenticatedUsers:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-automaticallyprovisionauthenticatedusers
+        Name:
+          type: string
+          enum:
+            - automaticallyprovisionauthenticatedusers
+        Value:
+          type: boolean
+    AutomaticAccessADGroup:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-automaticaccessadgroup
+        Name:
+          type: string
+          enum:
+            - automaticaccessadgroup
+        Value:
+          type: string
+    IsAuthenticationEnabled:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-isauthenticationenabled
+        Name:
+          type: string
+          enum:
+            - isauthenticationenabled
+        Value:
+          type: boolean
+    RequireApiKeyForWritingEvents:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-requireapikeyforwritingevents
+        Name:
+          type: string
+          enum:
+            - requireapikeyforwritingevents
+        Value:
+          type: boolean
+    CheckForUpdates:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-checkforupdates
+        Name:
+          type: string
+          enum:
+            - checkforupdates
+        Value:
+          type: boolean
+    CheckForPackageUpdates:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-checkforpackageupdates
+        Name:
+          type: string
+          enum:
+            - checkforpackageupdates
+        Value:
+          type: boolean
+    RawPayloadMaximumContentLength:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-rawpayloadmaximumcontentlength
+        Name:
+          type: string
+          enum:
+            - rawpayloadmaximumcontentlength
+        Value:
+          type: integer
+    RawEventMaximumContentLength:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-raweventmaximumcontentlength
+        Name:
+          type: string
+          enum:
+            - raweventmaximumcontentlength
+        Value:
+          type: integer
+    MinimumFreeStorageSpace:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-minimumfreestoragespace
+        Name:
+          type: string
+          enum:
+            - minimumfreestoragespace
+        Value:
+          type: integer
+    ThemeStyles:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-themestyles
+        Name:
+          type: string
+          enum:
+            - themestyles
+        Value:
+          type: string
+    AzureADAuthority:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-azureadauthority
+        Name:
+          type: string
+          enum:
+            - azureadauthority
+        Value:
+          type: string
+    AzureADTenantId:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-azureadtenantid
+        Name:
+          type: string
+          enum:
+            - azureadtenantid
+        Value:
+          type: string
+    AzureADClientId:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-azureadclientid
+        Name:
+          type: string
+          enum:
+            - azureadclientid
+        Value:
+          type: string
+    AzureADClientKey:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-azureadclientkey
+        Name:
+          type: string
+          enum:
+            - azureadclientkey
+        Value:
+          type: string
+    BackupLocation:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-backuplocation
+        Name:
+          type: string
+          enum:
+            - backuplocation
+        Value:
+          type: string
+    BackupUtcTimeOfDay:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-backuputctimeofday
+        Name:
+          type: string
+          enum:
+            - backuputctimeofday
+        Value:
+          type: string
+    BackupsToKeep:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-backupstokeep
+        Name:
+          type: string
+          enum:
+            - backupstokeep
+        Value:
+          type: integer
+    SecretKeyIsBackedUp:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-secretkeyisbackedup
+        Name:
+          type: string
+          enum:
+            - secretkeyisbackedup
+        Value:
+          type: boolean
+    NewUserRoleIds:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-newuserroleids
+        Name:
+          type: string
+          enum:
+            - newuserroleids
+        Value:
+          type: string
+    NewUserShowSignalIds:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-newusershowsignalids
+        Name:
+          type: string
+          enum:
+            - newusershowsignalids
+        Value:
+          type: string
+    NewUserShowQueryIds:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-newusershowqueryids
+        Name:
+          type: string
+          enum:
+            - newusershowqueryids
+        Value:
+          type: string
+    NewUserShowDashboardIds:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-newusershowdashboardids
+        Name:
+          type: string
+          enum:
+            - newusershowdashboardids
+        Value:
+          type: string
+    InstanceTitle:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-instancetitle
+        Name:
+          type: string
+          enum:
+            - instancetitle
+        Value:
+          type: string
+    MinimumPasswordLength:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-minimumpasswordlength
+        Name:
+          type: string
+          enum:
+            - minimumpasswordlength
+        Value:
+          type: integer
+    PasswordRequiredCharacterClasses:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-passwordrequiredcharacterclasses
+        Name:
+          type: string
+          enum:
+            - passwordrequiredcharacterclasses
+        Value:
+          type: string
+    TelemetryId:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-telemetryid
+        Name:
+          type: string
+          enum:
+            - telemetryid
+        Value:
+          type: string
+    TelemetryReplyEmail:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-telemetryreplyemail
+        Name:
+          type: string
+          enum:
+            - telemetryreplyemail
+        Value:
+          type: string
+    OpenIdConnectAuthority:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-openidconnectauthority
+        Name:
+          type: string
+          enum:
+            - openidconnectauthority
+        Value:
+          type: string
+    OpenIdConnectClientId:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-openidconnectclientid
+        Name:
+          type: string
+          enum:
+            - openidconnectclientid
+        Value:
+          type: string
+    OpenIdConnectClientSecret:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-openidconnectclientsecret
+        Name:
+          type: string
+          enum:
+            - openidconnectclientsecret
+        Value:
+          type: string
+    OpenIdConnectScopes:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-openidconnectscopes
+        Name:
+          type: string
+          enum:
+            - openidconnectscopes
+        Value:
+          type: string
+    OpenIdConnectEndSessionRedirectUri:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-openidconnectendsessionredirecturi
+        Name:
+          type: string
+          enum:
+            - openidconnectendsessionredirecturi
+        Value:
+          type: string
+    MEqMTWriteFixAppliedAt:
+      properties:
+        Id:
+          type: string
+          enum:
+            - setting-meqmtwritefixappliedat
+        Name:
+          type: string
+          enum:
+            - meqmtwritefixappliedat
+        Value:
+          type: string
+    Setting:
+      oneOf:
+        - $ref: "#/components/schemas/AuthenticationProvider"
+        - $ref: "#/components/schemas/AutomaticallyProvisionAuthenticatedUsers"
+        - $ref: "#/components/schemas/AutomaticAccessADGroup"
+        - $ref: "#/components/schemas/IsAuthenticationEnabled"
+        - $ref: "#/components/schemas/RequireApiKeyForWritingEvents"
+        - $ref: "#/components/schemas/CheckForUpdates"
+        - $ref: "#/components/schemas/CheckForPackageUpdates"
+        - $ref: "#/components/schemas/RawPayloadMaximumContentLength"
+        - $ref: "#/components/schemas/RawEventMaximumContentLength"
+        - $ref: "#/components/schemas/MinimumFreeStorageSpace"
+        - $ref: "#/components/schemas/ThemeStyles"
+        - $ref: "#/components/schemas/AzureADAuthority"
+        - $ref: "#/components/schemas/AzureADTenantId"
+        - $ref: "#/components/schemas/AzureADClientId"
+        - $ref: "#/components/schemas/AzureADClientKey"
+        - $ref: "#/components/schemas/BackupLocation"
+        - $ref: "#/components/schemas/BackupUtcTimeOfDay"
+        - $ref: "#/components/schemas/BackupsToKeep"
+        - $ref: "#/components/schemas/SecretKeyIsBackedUp"
+        - $ref: "#/components/schemas/NewUserRoleIds"
+        - $ref: "#/components/schemas/NewUserShowSignalIds"
+        - $ref: "#/components/schemas/NewUserShowQueryIds"
+        - $ref: "#/components/schemas/NewUserShowDashboardIds"
+        - $ref: "#/components/schemas/InstanceTitle"
+        - $ref: "#/components/schemas/MinimumPasswordLength"
+        - $ref: "#/components/schemas/PasswordRequiredCharacterClasses"
+        - $ref: "#/components/schemas/TelemetryId"
+        - $ref: "#/components/schemas/TelemetryReplyEmail"
+        - $ref: "#/components/schemas/OpenIdConnectAuthority"
+        - $ref: "#/components/schemas/OpenIdConnectClientId"
+        - $ref: "#/components/schemas/OpenIdConnectClientSecret"
+        - $ref: "#/components/schemas/OpenIdConnectScopes"
+        - $ref: "#/components/schemas/OpenIdConnectEndSessionRedirectUri"
+        - $ref: "#/components/schemas/MEqMTWriteFixAppliedAt"
+      required:
+        - Id
+        - Name
+        - Value
+
+    # licenses
+    License:
+      properties:
+        LicenceText:
+          type: string
+        IsValid:
+          type: boolean
+          readOnly: true
+        IsSingleUser:
+          type: boolean
+          readOnly: true
+        SubscriptionId:
+          type: string
+          readOnly: true
+        StatusDescription:
+          type: string
+          readOnly: true
+        IsWarning:
+          type: boolean
+          readOnly: true
+        CanRenewOnlineNow:
+          type: boolean
+          readOnly: true
+        LicensedUsers:
+          type: integer
+          readOnly: true
+        AutomaticallyRefresh:
+          type: boolean
+          readOnly: true
+        Id:
+          type: string
+          readOnly: true
+      required:
+        - LicenseText
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Seq-ApiKey
+      in: header

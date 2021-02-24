@@ -1,0 +1,108 @@
+# RequireApiKeyForWritingEvents
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **bool** |  | [optional] 
+
+## Methods
+
+### NewRequireApiKeyForWritingEvents
+
+`func NewRequireApiKeyForWritingEvents() *RequireApiKeyForWritingEvents`
+
+NewRequireApiKeyForWritingEvents instantiates a new RequireApiKeyForWritingEvents object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewRequireApiKeyForWritingEventsWithDefaults
+
+`func NewRequireApiKeyForWritingEventsWithDefaults() *RequireApiKeyForWritingEvents`
+
+NewRequireApiKeyForWritingEventsWithDefaults instantiates a new RequireApiKeyForWritingEvents object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *RequireApiKeyForWritingEvents) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *RequireApiKeyForWritingEvents) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *RequireApiKeyForWritingEvents) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *RequireApiKeyForWritingEvents) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *RequireApiKeyForWritingEvents) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *RequireApiKeyForWritingEvents) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *RequireApiKeyForWritingEvents) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *RequireApiKeyForWritingEvents) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetValue
+
+`func (o *RequireApiKeyForWritingEvents) GetValue() bool`
+
+GetValue returns the Value field if non-nil, zero value otherwise.
+
+### GetValueOk
+
+`func (o *RequireApiKeyForWritingEvents) GetValueOk() (*bool, bool)`
+
+GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValue
+
+`func (o *RequireApiKeyForWritingEvents) SetValue(v bool)`
+
+SetValue sets Value field to given value.
+
+### HasValue
+
+`func (o *RequireApiKeyForWritingEvents) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
