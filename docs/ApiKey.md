@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AssignedPermissions** | Pointer to **[]string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
-**InputSettings** | Pointer to **map[string]interface{}** |  | [optional] 
+**InputSettings** | Pointer to [**InputSettings**](InputSettings.md) |  | [optional] 
 **IsDefault** | Pointer to **bool** |  | [optional] [readonly] 
 **OwnerId** | Pointer to **string** |  | [optional] 
 **Title** | **string** |  | 
@@ -84,20 +84,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetInputSettings
 
-`func (o *ApiKey) GetInputSettings() map[string]interface{}`
+`func (o *ApiKey) GetInputSettings() InputSettings`
 
 GetInputSettings returns the InputSettings field if non-nil, zero value otherwise.
 
 ### GetInputSettingsOk
 
-`func (o *ApiKey) GetInputSettingsOk() (*map[string]interface{}, bool)`
+`func (o *ApiKey) GetInputSettingsOk() (*InputSettings, bool)`
 
 GetInputSettingsOk returns a tuple with the InputSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputSettings
 
-`func (o *ApiKey) SetInputSettings(v map[string]interface{})`
+`func (o *ApiKey) SetInputSettings(v InputSettings)`
 
 SetInputSettings sets InputSettings field to given value.
 

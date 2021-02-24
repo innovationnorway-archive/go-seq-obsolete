@@ -66,6 +66,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       tags:
         - apikeys
   /api/apikeys/{id}:
@@ -254,6 +260,27 @@ components:
           readOnly: true
 
     # apikeys
+    InputSettings:
+      properties:
+        AppliedProperties:
+          type: array
+          items:
+            properties:
+              Name:
+                type: string
+              Value:
+                type: string
+        MinimumLevel:
+          type: string
+          enum:
+            - Verbose
+            - Debug
+            - Information
+            - Warning
+            - Error
+            - Fatal
+        UseServerTimestamps:
+          type: boolean
     ApiKey:
       properties:
         AssignedPermissions:
@@ -268,22 +295,8 @@ components:
         Id:
           type: string
           readOnly: true
-        # InputMetrics:
         InputSettings:
-          properties:
-            # AppliedProperties:
-            # Filter:
-            MinimumLevel:
-              type: string
-              enum:
-                - Verbose
-                - Debug
-                - Information
-                - Warning
-                - Error
-                - Fatal
-            UseServerTimestamps:
-              type: boolean
+          $ref: "#/components/schemas/InputSettings"
         IsDefault:
           type: boolean
           readOnly: true
@@ -312,6 +325,9 @@ components:
             - authenticationprovider
         Value:
           type: string
+      required:
+        - Id
+        - Name
     AutomaticallyProvisionAuthenticatedUsers:
       properties:
         Id:
@@ -324,6 +340,9 @@ components:
             - automaticallyprovisionauthenticatedusers
         Value:
           type: boolean
+      required:
+        - Id
+        - Name
     AutomaticAccessADGroup:
       properties:
         Id:
@@ -336,6 +355,9 @@ components:
             - automaticaccessadgroup
         Value:
           type: string
+      required:
+        - Id
+        - Name
     IsAuthenticationEnabled:
       properties:
         Id:
@@ -348,6 +370,9 @@ components:
             - isauthenticationenabled
         Value:
           type: boolean
+      required:
+        - Id
+        - Name
     RequireApiKeyForWritingEvents:
       properties:
         Id:
@@ -360,6 +385,9 @@ components:
             - requireapikeyforwritingevents
         Value:
           type: boolean
+      required:
+        - Id
+        - Name
     CheckForUpdates:
       properties:
         Id:
@@ -372,6 +400,9 @@ components:
             - checkforupdates
         Value:
           type: boolean
+      required:
+        - Id
+        - Name
     CheckForPackageUpdates:
       properties:
         Id:
@@ -384,6 +415,9 @@ components:
             - checkforpackageupdates
         Value:
           type: boolean
+      required:
+        - Id
+        - Name
     RawPayloadMaximumContentLength:
       properties:
         Id:
@@ -396,6 +430,9 @@ components:
             - rawpayloadmaximumcontentlength
         Value:
           type: integer
+      required:
+        - Id
+        - Name
     RawEventMaximumContentLength:
       properties:
         Id:
@@ -408,6 +445,9 @@ components:
             - raweventmaximumcontentlength
         Value:
           type: integer
+      required:
+        - Id
+        - Name
     MinimumFreeStorageSpace:
       properties:
         Id:
@@ -420,6 +460,9 @@ components:
             - minimumfreestoragespace
         Value:
           type: integer
+      required:
+        - Id
+        - Name
     ThemeStyles:
       properties:
         Id:
@@ -432,6 +475,9 @@ components:
             - themestyles
         Value:
           type: string
+      required:
+        - Id
+        - Name
     AzureADAuthority:
       properties:
         Id:
@@ -444,6 +490,9 @@ components:
             - azureadauthority
         Value:
           type: string
+      required:
+        - Id
+        - Name
     AzureADTenantId:
       properties:
         Id:
@@ -456,6 +505,9 @@ components:
             - azureadtenantid
         Value:
           type: string
+      required:
+        - Id
+        - Name
     AzureADClientId:
       properties:
         Id:
@@ -468,6 +520,9 @@ components:
             - azureadclientid
         Value:
           type: string
+      required:
+        - Id
+        - Name
     AzureADClientKey:
       properties:
         Id:
@@ -480,6 +535,9 @@ components:
             - azureadclientkey
         Value:
           type: string
+      required:
+        - Id
+        - Name
     BackupLocation:
       properties:
         Id:
@@ -492,6 +550,9 @@ components:
             - backuplocation
         Value:
           type: string
+      required:
+        - Id
+        - Name
     BackupUtcTimeOfDay:
       properties:
         Id:
@@ -504,6 +565,9 @@ components:
             - backuputctimeofday
         Value:
           type: string
+      required:
+        - Id
+        - Name
     BackupsToKeep:
       properties:
         Id:
@@ -516,6 +580,9 @@ components:
             - backupstokeep
         Value:
           type: integer
+      required:
+        - Id
+        - Name
     SecretKeyIsBackedUp:
       properties:
         Id:
@@ -528,6 +595,9 @@ components:
             - secretkeyisbackedup
         Value:
           type: boolean
+      required:
+        - Id
+        - Name
     NewUserRoleIds:
       properties:
         Id:
@@ -540,6 +610,9 @@ components:
             - newuserroleids
         Value:
           type: string
+      required:
+        - Id
+        - Name
     NewUserShowSignalIds:
       properties:
         Id:
@@ -552,6 +625,9 @@ components:
             - newusershowsignalids
         Value:
           type: string
+      required:
+        - Id
+        - Name
     NewUserShowQueryIds:
       properties:
         Id:
@@ -564,6 +640,9 @@ components:
             - newusershowqueryids
         Value:
           type: string
+      required:
+        - Id
+        - Name
     NewUserShowDashboardIds:
       properties:
         Id:
@@ -576,6 +655,9 @@ components:
             - newusershowdashboardids
         Value:
           type: string
+      required:
+        - Id
+        - Name
     InstanceTitle:
       properties:
         Id:
@@ -588,6 +670,9 @@ components:
             - instancetitle
         Value:
           type: string
+      required:
+        - Id
+        - Name
     MinimumPasswordLength:
       properties:
         Id:
@@ -600,6 +685,9 @@ components:
             - minimumpasswordlength
         Value:
           type: integer
+      required:
+        - Id
+        - Name
     PasswordRequiredCharacterClasses:
       properties:
         Id:
@@ -612,6 +700,9 @@ components:
             - passwordrequiredcharacterclasses
         Value:
           type: string
+      required:
+        - Id
+        - Name
     TelemetryId:
       properties:
         Id:
@@ -624,6 +715,9 @@ components:
             - telemetryid
         Value:
           type: string
+      required:
+        - Id
+        - Name
     TelemetryReplyEmail:
       properties:
         Id:
@@ -636,6 +730,9 @@ components:
             - telemetryreplyemail
         Value:
           type: string
+      required:
+        - Id
+        - Name
     OpenIdConnectAuthority:
       properties:
         Id:
@@ -648,6 +745,9 @@ components:
             - openidconnectauthority
         Value:
           type: string
+      required:
+        - Id
+        - Name
     OpenIdConnectClientId:
       properties:
         Id:
@@ -660,6 +760,9 @@ components:
             - openidconnectclientid
         Value:
           type: string
+      required:
+        - Id
+        - Name
     OpenIdConnectClientSecret:
       properties:
         Id:
@@ -672,6 +775,9 @@ components:
             - openidconnectclientsecret
         Value:
           type: string
+      required:
+        - Id
+        - Name
     OpenIdConnectScopes:
       properties:
         Id:
@@ -684,6 +790,9 @@ components:
             - openidconnectscopes
         Value:
           type: string
+      required:
+        - Id
+        - Name
     OpenIdConnectEndSessionRedirectUri:
       properties:
         Id:
@@ -696,6 +805,9 @@ components:
             - openidconnectendsessionredirecturi
         Value:
           type: string
+      required:
+        - Id
+        - Name
     MEqMTWriteFixAppliedAt:
       properties:
         Id:
@@ -708,6 +820,9 @@ components:
             - meqmtwritefixappliedat
         Value:
           type: string
+      required:
+        - Id
+        - Name
     Setting:
       oneOf:
         - $ref: "#/components/schemas/AuthenticationProvider"
@@ -744,10 +859,42 @@ components:
         - $ref: "#/components/schemas/OpenIdConnectScopes"
         - $ref: "#/components/schemas/OpenIdConnectEndSessionRedirectUri"
         - $ref: "#/components/schemas/MEqMTWriteFixAppliedAt"
-      required:
-        - Id
-        - Name
-        - Value
+      discriminator:
+        propertyName: Id
+        mapping:
+          setting-authenticationprovider: "#/components/schemas/AuthenticationProvider"
+          setting-automaticallyprovisionauthenticatedusers: "#/components/schemas/AutomaticallyProvisionAuthenticatedUsers"
+          setting-automaticaccessadgroup: "#/components/schemas/AutomaticAccessADGroup"
+          setting-isauthenticationenabled: "#/components/schemas/IsAuthenticationEnabled"
+          setting-requireapikeyforwritingevents: "#/components/schemas/RequireApiKeyForWritingEvents"
+          setting-checkforupdates: "#/components/schemas/CheckForUpdates"
+          setting-checkforpackageupdates: "#/components/schemas/CheckForPackageUpdates"
+          setting-rawpayloadmaximumcontentlength: "#/components/schemas/RawPayloadMaximumContentLength"
+          setting-raweventmaximumcontentlength: "#/components/schemas/RawEventMaximumContentLength"
+          setting-minimumfreestoragespace: "#/components/schemas/MinimumFreeStorageSpace"
+          setting-themestyles: "#/components/schemas/ThemeStyles"
+          setting-azureadauthority: "#/components/schemas/AzureADAuthority"
+          setting-azureadtenantid: "#/components/schemas/AzureADTenantId"
+          setting-azureadclientid: "#/components/schemas/AzureADClientId"
+          setting-azureadclientkey: "#/components/schemas/AzureADClientKey"
+          setting-backuplocation: "#/components/schemas/BackupLocation"
+          setting-backuputctimeofday: "#/components/schemas/BackupUtcTimeOfDay"
+          setting-backupstokeep: "#/components/schemas/BackupsToKeep"
+          setting-secretkeyisbackedup: "#/components/schemas/SecretKeyIsBackedUp"
+          setting-newuserroleids: "#/components/schemas/NewUserRoleIds"
+          setting-newusershowsignalids: "#/components/schemas/NewUserShowSignalIds"
+          setting-newusershowqueryids: "#/components/schemas/NewUserShowQueryIds"
+          setting-newusershowdashboardids: "#/components/schemas/NewUserShowDashboardIds"
+          setting-instancetitle: "#/components/schemas/InstanceTitle"
+          setting-minimumpasswordlength: "#/components/schemas/MinimumPasswordLength"
+          setting-passwordrequiredcharacterclasses: "#/components/schemas/PasswordRequiredCharacterClasses"
+          setting-telemetryid: "#/components/schemas/TelemetryId"
+          setting-telemetryreplyemail: "#/components/schemas/TelemetryReplyEmail"
+          setting-openidconnectauthority: "#/components/schemas/OpenIdConnectAuthority"
+          setting-openidconnectclientid: "#/components/schemas/OpenIdConnectClientId"
+          setting-openidconnectclientsecret: "#/components/schemas/OpenIdConnectClientSecret"
+          setting-openidconnectscopes: "#/components/schemas/OpenIdConnectScopes"
+          setting-openidconnectendsessionredirecturi: "#/components/schemas/OpenIdConnectEndSessionRedirectUri"
 
     # licenses
     License:

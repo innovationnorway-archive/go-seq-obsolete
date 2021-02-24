@@ -21,5 +21,5 @@ $ npm install -g @openapitools/openapi-generator-cli
 Generate API client:
 
 ```
-$ openapi-generator-cli generate -g go -i openapi.yaml --package-name=seq
+$ openapi-generator-cli generate -g go -i openapi.yaml --package-name=seq -p useOneOfDiscriminatorLookup=true
 ```

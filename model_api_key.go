@@ -18,7 +18,7 @@ import (
 type ApiKey struct {
 	AssignedPermissions *[]string `json:"AssignedPermissions,omitempty"`
 	Id *string `json:"Id,omitempty"`
-	InputSettings *map[string]interface{} `json:"InputSettings,omitempty"`
+	InputSettings *InputSettings `json:"InputSettings,omitempty"`
 	IsDefault *bool `json:"IsDefault,omitempty"`
 	OwnerId *string `json:"OwnerId,omitempty"`
 	Title string `json:"Title"`
@@ -109,9 +109,9 @@ func (o *ApiKey) SetId(v string) {
 }
 
 // GetInputSettings returns the InputSettings field value if set, zero value otherwise.
-func (o *ApiKey) GetInputSettings() map[string]interface{} {
+func (o *ApiKey) GetInputSettings() InputSettings {
 	if o == nil || o.InputSettings == nil {
-		var ret map[string]interface{}
+		var ret InputSettings
 		return ret
 	}
 	return *o.InputSettings
@@ -119,7 +119,7 @@ func (o *ApiKey) GetInputSettings() map[string]interface{} {
 
 // GetInputSettingsOk returns a tuple with the InputSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiKey) GetInputSettingsOk() (*map[string]interface{}, bool) {
+func (o *ApiKey) GetInputSettingsOk() (*InputSettings, bool) {
 	if o == nil || o.InputSettings == nil {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *ApiKey) HasInputSettings() bool {
 	return false
 }
 
-// SetInputSettings gets a reference to the given map[string]interface{} and assigns it to the InputSettings field.
-func (o *ApiKey) SetInputSettings(v map[string]interface{}) {
+// SetInputSettings gets a reference to the given InputSettings and assigns it to the InputSettings field.
+func (o *ApiKey) SetInputSettings(v InputSettings) {
 	o.InputSettings = &v
 }
 

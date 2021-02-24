@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
 **Value** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewRequireApiKeyForWritingEvents
 
-`func NewRequireApiKeyForWritingEvents() *RequireApiKeyForWritingEvents`
+`func NewRequireApiKeyForWritingEvents(id string, name string, ) *RequireApiKeyForWritingEvents`
 
 NewRequireApiKeyForWritingEvents instantiates a new RequireApiKeyForWritingEvents object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *RequireApiKeyForWritingEvents) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *RequireApiKeyForWritingEvents) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetValue
 

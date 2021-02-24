@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
 **Value** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewAuthenticationProvider
 
-`func NewAuthenticationProvider() *AuthenticationProvider`
+`func NewAuthenticationProvider(id string, name string, ) *AuthenticationProvider`
 
 NewAuthenticationProvider instantiates a new AuthenticationProvider object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *AuthenticationProvider) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *AuthenticationProvider) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetValue
 

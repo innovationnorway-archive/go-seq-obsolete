@@ -16,8 +16,8 @@ import (
 
 // AuthenticationProvider struct for AuthenticationProvider
 type AuthenticationProvider struct {
-	Id *string `json:"Id,omitempty"`
-	Name *string `json:"Name,omitempty"`
+	Id string `json:"Id"`
+	Name string `json:"Name"`
 	Value *string `json:"Value,omitempty"`
 }
 
@@ -25,8 +25,10 @@ type AuthenticationProvider struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticationProvider() *AuthenticationProvider {
+func NewAuthenticationProvider(id string, name string, ) *AuthenticationProvider {
 	this := AuthenticationProvider{}
+	this.Id = id
+	this.Name = name
 	return &this
 }
 
@@ -38,68 +40,52 @@ func NewAuthenticationProviderWithDefaults() *AuthenticationProvider {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *AuthenticationProvider) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *AuthenticationProvider) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *AuthenticationProvider) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *AuthenticationProvider) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *AuthenticationProvider) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *AuthenticationProvider) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *AuthenticationProvider) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *AuthenticationProvider) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -136,10 +122,10 @@ func (o *AuthenticationProvider) SetValue(v string) {
 
 func (o AuthenticationProvider) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if true {
 		toSerialize["Id"] = o.Id
 	}
-	if o.Name != nil {
+	if true {
 		toSerialize["Name"] = o.Name
 	}
 	if o.Value != nil {

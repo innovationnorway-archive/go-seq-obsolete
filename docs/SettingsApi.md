@@ -97,7 +97,7 @@ import (
 
 func main() {
     id := "id_example" // string | The id of the setting
-    setting := openapiclient.Setting{AuthenticationProvider: openapiclient.NewAuthenticationProvider()} // Setting |  (optional)
+    setting := openapiclient.Setting{AuthenticationProvider: openapiclient.NewAuthenticationProvider("Id_example", "Name_example")} // Setting |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

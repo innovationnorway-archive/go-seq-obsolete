@@ -227,492 +227,818 @@ func ThemeStylesAsSetting(v *ThemeStyles) Setting {
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Setting) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into AuthenticationProvider
-	err = json.Unmarshal(data, &dst.AuthenticationProvider)
-	if err == nil {
-		jsonAuthenticationProvider, _ := json.Marshal(dst.AuthenticationProvider)
-		if string(jsonAuthenticationProvider) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discrimintor lookup.")
+	}
+
+	// check if the discriminator value is 'AuthenticationProvider'
+	if jsonDict["Id"] == "AuthenticationProvider" {
+		// try to unmarshal JSON data into AuthenticationProvider
+		err = json.Unmarshal(data, &dst.AuthenticationProvider)
+		if err == nil {
+			return nil // data stored in dst.AuthenticationProvider, return on the first match
+		} else {
 			dst.AuthenticationProvider = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AuthenticationProvider: %s", err.Error())
 		}
-	} else {
-		dst.AuthenticationProvider = nil
 	}
 
-	// try to unmarshal data into AutomaticAccessADGroup
-	err = json.Unmarshal(data, &dst.AutomaticAccessADGroup)
-	if err == nil {
-		jsonAutomaticAccessADGroup, _ := json.Marshal(dst.AutomaticAccessADGroup)
-		if string(jsonAutomaticAccessADGroup) == "{}" { // empty struct
+	// check if the discriminator value is 'AutomaticAccessADGroup'
+	if jsonDict["Id"] == "AutomaticAccessADGroup" {
+		// try to unmarshal JSON data into AutomaticAccessADGroup
+		err = json.Unmarshal(data, &dst.AutomaticAccessADGroup)
+		if err == nil {
+			return nil // data stored in dst.AutomaticAccessADGroup, return on the first match
+		} else {
 			dst.AutomaticAccessADGroup = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AutomaticAccessADGroup: %s", err.Error())
 		}
-	} else {
-		dst.AutomaticAccessADGroup = nil
 	}
 
-	// try to unmarshal data into AutomaticallyProvisionAuthenticatedUsers
-	err = json.Unmarshal(data, &dst.AutomaticallyProvisionAuthenticatedUsers)
-	if err == nil {
-		jsonAutomaticallyProvisionAuthenticatedUsers, _ := json.Marshal(dst.AutomaticallyProvisionAuthenticatedUsers)
-		if string(jsonAutomaticallyProvisionAuthenticatedUsers) == "{}" { // empty struct
+	// check if the discriminator value is 'AutomaticallyProvisionAuthenticatedUsers'
+	if jsonDict["Id"] == "AutomaticallyProvisionAuthenticatedUsers" {
+		// try to unmarshal JSON data into AutomaticallyProvisionAuthenticatedUsers
+		err = json.Unmarshal(data, &dst.AutomaticallyProvisionAuthenticatedUsers)
+		if err == nil {
+			return nil // data stored in dst.AutomaticallyProvisionAuthenticatedUsers, return on the first match
+		} else {
 			dst.AutomaticallyProvisionAuthenticatedUsers = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AutomaticallyProvisionAuthenticatedUsers: %s", err.Error())
 		}
-	} else {
-		dst.AutomaticallyProvisionAuthenticatedUsers = nil
 	}
 
-	// try to unmarshal data into AzureADAuthority
-	err = json.Unmarshal(data, &dst.AzureADAuthority)
-	if err == nil {
-		jsonAzureADAuthority, _ := json.Marshal(dst.AzureADAuthority)
-		if string(jsonAzureADAuthority) == "{}" { // empty struct
+	// check if the discriminator value is 'AzureADAuthority'
+	if jsonDict["Id"] == "AzureADAuthority" {
+		// try to unmarshal JSON data into AzureADAuthority
+		err = json.Unmarshal(data, &dst.AzureADAuthority)
+		if err == nil {
+			return nil // data stored in dst.AzureADAuthority, return on the first match
+		} else {
 			dst.AzureADAuthority = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADAuthority: %s", err.Error())
 		}
-	} else {
-		dst.AzureADAuthority = nil
 	}
 
-	// try to unmarshal data into AzureADClientId
-	err = json.Unmarshal(data, &dst.AzureADClientId)
-	if err == nil {
-		jsonAzureADClientId, _ := json.Marshal(dst.AzureADClientId)
-		if string(jsonAzureADClientId) == "{}" { // empty struct
+	// check if the discriminator value is 'AzureADClientId'
+	if jsonDict["Id"] == "AzureADClientId" {
+		// try to unmarshal JSON data into AzureADClientId
+		err = json.Unmarshal(data, &dst.AzureADClientId)
+		if err == nil {
+			return nil // data stored in dst.AzureADClientId, return on the first match
+		} else {
 			dst.AzureADClientId = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADClientId: %s", err.Error())
 		}
-	} else {
-		dst.AzureADClientId = nil
 	}
 
-	// try to unmarshal data into AzureADClientKey
-	err = json.Unmarshal(data, &dst.AzureADClientKey)
-	if err == nil {
-		jsonAzureADClientKey, _ := json.Marshal(dst.AzureADClientKey)
-		if string(jsonAzureADClientKey) == "{}" { // empty struct
+	// check if the discriminator value is 'AzureADClientKey'
+	if jsonDict["Id"] == "AzureADClientKey" {
+		// try to unmarshal JSON data into AzureADClientKey
+		err = json.Unmarshal(data, &dst.AzureADClientKey)
+		if err == nil {
+			return nil // data stored in dst.AzureADClientKey, return on the first match
+		} else {
 			dst.AzureADClientKey = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADClientKey: %s", err.Error())
 		}
-	} else {
-		dst.AzureADClientKey = nil
 	}
 
-	// try to unmarshal data into AzureADTenantId
-	err = json.Unmarshal(data, &dst.AzureADTenantId)
-	if err == nil {
-		jsonAzureADTenantId, _ := json.Marshal(dst.AzureADTenantId)
-		if string(jsonAzureADTenantId) == "{}" { // empty struct
+	// check if the discriminator value is 'AzureADTenantId'
+	if jsonDict["Id"] == "AzureADTenantId" {
+		// try to unmarshal JSON data into AzureADTenantId
+		err = json.Unmarshal(data, &dst.AzureADTenantId)
+		if err == nil {
+			return nil // data stored in dst.AzureADTenantId, return on the first match
+		} else {
 			dst.AzureADTenantId = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADTenantId: %s", err.Error())
 		}
-	} else {
-		dst.AzureADTenantId = nil
 	}
 
-	// try to unmarshal data into BackupLocation
-	err = json.Unmarshal(data, &dst.BackupLocation)
-	if err == nil {
-		jsonBackupLocation, _ := json.Marshal(dst.BackupLocation)
-		if string(jsonBackupLocation) == "{}" { // empty struct
+	// check if the discriminator value is 'BackupLocation'
+	if jsonDict["Id"] == "BackupLocation" {
+		// try to unmarshal JSON data into BackupLocation
+		err = json.Unmarshal(data, &dst.BackupLocation)
+		if err == nil {
+			return nil // data stored in dst.BackupLocation, return on the first match
+		} else {
 			dst.BackupLocation = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as BackupLocation: %s", err.Error())
 		}
-	} else {
-		dst.BackupLocation = nil
 	}
 
-	// try to unmarshal data into BackupUtcTimeOfDay
-	err = json.Unmarshal(data, &dst.BackupUtcTimeOfDay)
-	if err == nil {
-		jsonBackupUtcTimeOfDay, _ := json.Marshal(dst.BackupUtcTimeOfDay)
-		if string(jsonBackupUtcTimeOfDay) == "{}" { // empty struct
+	// check if the discriminator value is 'BackupUtcTimeOfDay'
+	if jsonDict["Id"] == "BackupUtcTimeOfDay" {
+		// try to unmarshal JSON data into BackupUtcTimeOfDay
+		err = json.Unmarshal(data, &dst.BackupUtcTimeOfDay)
+		if err == nil {
+			return nil // data stored in dst.BackupUtcTimeOfDay, return on the first match
+		} else {
 			dst.BackupUtcTimeOfDay = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as BackupUtcTimeOfDay: %s", err.Error())
 		}
-	} else {
-		dst.BackupUtcTimeOfDay = nil
 	}
 
-	// try to unmarshal data into BackupsToKeep
-	err = json.Unmarshal(data, &dst.BackupsToKeep)
-	if err == nil {
-		jsonBackupsToKeep, _ := json.Marshal(dst.BackupsToKeep)
-		if string(jsonBackupsToKeep) == "{}" { // empty struct
+	// check if the discriminator value is 'BackupsToKeep'
+	if jsonDict["Id"] == "BackupsToKeep" {
+		// try to unmarshal JSON data into BackupsToKeep
+		err = json.Unmarshal(data, &dst.BackupsToKeep)
+		if err == nil {
+			return nil // data stored in dst.BackupsToKeep, return on the first match
+		} else {
 			dst.BackupsToKeep = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as BackupsToKeep: %s", err.Error())
 		}
-	} else {
-		dst.BackupsToKeep = nil
 	}
 
-	// try to unmarshal data into CheckForPackageUpdates
-	err = json.Unmarshal(data, &dst.CheckForPackageUpdates)
-	if err == nil {
-		jsonCheckForPackageUpdates, _ := json.Marshal(dst.CheckForPackageUpdates)
-		if string(jsonCheckForPackageUpdates) == "{}" { // empty struct
+	// check if the discriminator value is 'CheckForPackageUpdates'
+	if jsonDict["Id"] == "CheckForPackageUpdates" {
+		// try to unmarshal JSON data into CheckForPackageUpdates
+		err = json.Unmarshal(data, &dst.CheckForPackageUpdates)
+		if err == nil {
+			return nil // data stored in dst.CheckForPackageUpdates, return on the first match
+		} else {
 			dst.CheckForPackageUpdates = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as CheckForPackageUpdates: %s", err.Error())
 		}
-	} else {
-		dst.CheckForPackageUpdates = nil
 	}
 
-	// try to unmarshal data into CheckForUpdates
-	err = json.Unmarshal(data, &dst.CheckForUpdates)
-	if err == nil {
-		jsonCheckForUpdates, _ := json.Marshal(dst.CheckForUpdates)
-		if string(jsonCheckForUpdates) == "{}" { // empty struct
+	// check if the discriminator value is 'CheckForUpdates'
+	if jsonDict["Id"] == "CheckForUpdates" {
+		// try to unmarshal JSON data into CheckForUpdates
+		err = json.Unmarshal(data, &dst.CheckForUpdates)
+		if err == nil {
+			return nil // data stored in dst.CheckForUpdates, return on the first match
+		} else {
 			dst.CheckForUpdates = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as CheckForUpdates: %s", err.Error())
 		}
-	} else {
-		dst.CheckForUpdates = nil
 	}
 
-	// try to unmarshal data into InstanceTitle
-	err = json.Unmarshal(data, &dst.InstanceTitle)
-	if err == nil {
-		jsonInstanceTitle, _ := json.Marshal(dst.InstanceTitle)
-		if string(jsonInstanceTitle) == "{}" { // empty struct
+	// check if the discriminator value is 'InstanceTitle'
+	if jsonDict["Id"] == "InstanceTitle" {
+		// try to unmarshal JSON data into InstanceTitle
+		err = json.Unmarshal(data, &dst.InstanceTitle)
+		if err == nil {
+			return nil // data stored in dst.InstanceTitle, return on the first match
+		} else {
 			dst.InstanceTitle = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as InstanceTitle: %s", err.Error())
 		}
-	} else {
-		dst.InstanceTitle = nil
 	}
 
-	// try to unmarshal data into IsAuthenticationEnabled
-	err = json.Unmarshal(data, &dst.IsAuthenticationEnabled)
-	if err == nil {
-		jsonIsAuthenticationEnabled, _ := json.Marshal(dst.IsAuthenticationEnabled)
-		if string(jsonIsAuthenticationEnabled) == "{}" { // empty struct
+	// check if the discriminator value is 'IsAuthenticationEnabled'
+	if jsonDict["Id"] == "IsAuthenticationEnabled" {
+		// try to unmarshal JSON data into IsAuthenticationEnabled
+		err = json.Unmarshal(data, &dst.IsAuthenticationEnabled)
+		if err == nil {
+			return nil // data stored in dst.IsAuthenticationEnabled, return on the first match
+		} else {
 			dst.IsAuthenticationEnabled = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as IsAuthenticationEnabled: %s", err.Error())
 		}
-	} else {
-		dst.IsAuthenticationEnabled = nil
 	}
 
-	// try to unmarshal data into MEqMTWriteFixAppliedAt
-	err = json.Unmarshal(data, &dst.MEqMTWriteFixAppliedAt)
-	if err == nil {
-		jsonMEqMTWriteFixAppliedAt, _ := json.Marshal(dst.MEqMTWriteFixAppliedAt)
-		if string(jsonMEqMTWriteFixAppliedAt) == "{}" { // empty struct
+	// check if the discriminator value is 'MEqMTWriteFixAppliedAt'
+	if jsonDict["Id"] == "MEqMTWriteFixAppliedAt" {
+		// try to unmarshal JSON data into MEqMTWriteFixAppliedAt
+		err = json.Unmarshal(data, &dst.MEqMTWriteFixAppliedAt)
+		if err == nil {
+			return nil // data stored in dst.MEqMTWriteFixAppliedAt, return on the first match
+		} else {
 			dst.MEqMTWriteFixAppliedAt = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as MEqMTWriteFixAppliedAt: %s", err.Error())
 		}
-	} else {
-		dst.MEqMTWriteFixAppliedAt = nil
 	}
 
-	// try to unmarshal data into MinimumFreeStorageSpace
-	err = json.Unmarshal(data, &dst.MinimumFreeStorageSpace)
-	if err == nil {
-		jsonMinimumFreeStorageSpace, _ := json.Marshal(dst.MinimumFreeStorageSpace)
-		if string(jsonMinimumFreeStorageSpace) == "{}" { // empty struct
+	// check if the discriminator value is 'MinimumFreeStorageSpace'
+	if jsonDict["Id"] == "MinimumFreeStorageSpace" {
+		// try to unmarshal JSON data into MinimumFreeStorageSpace
+		err = json.Unmarshal(data, &dst.MinimumFreeStorageSpace)
+		if err == nil {
+			return nil // data stored in dst.MinimumFreeStorageSpace, return on the first match
+		} else {
 			dst.MinimumFreeStorageSpace = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as MinimumFreeStorageSpace: %s", err.Error())
 		}
-	} else {
-		dst.MinimumFreeStorageSpace = nil
 	}
 
-	// try to unmarshal data into MinimumPasswordLength
-	err = json.Unmarshal(data, &dst.MinimumPasswordLength)
-	if err == nil {
-		jsonMinimumPasswordLength, _ := json.Marshal(dst.MinimumPasswordLength)
-		if string(jsonMinimumPasswordLength) == "{}" { // empty struct
+	// check if the discriminator value is 'MinimumPasswordLength'
+	if jsonDict["Id"] == "MinimumPasswordLength" {
+		// try to unmarshal JSON data into MinimumPasswordLength
+		err = json.Unmarshal(data, &dst.MinimumPasswordLength)
+		if err == nil {
+			return nil // data stored in dst.MinimumPasswordLength, return on the first match
+		} else {
 			dst.MinimumPasswordLength = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as MinimumPasswordLength: %s", err.Error())
 		}
-	} else {
-		dst.MinimumPasswordLength = nil
 	}
 
-	// try to unmarshal data into NewUserRoleIds
-	err = json.Unmarshal(data, &dst.NewUserRoleIds)
-	if err == nil {
-		jsonNewUserRoleIds, _ := json.Marshal(dst.NewUserRoleIds)
-		if string(jsonNewUserRoleIds) == "{}" { // empty struct
+	// check if the discriminator value is 'NewUserRoleIds'
+	if jsonDict["Id"] == "NewUserRoleIds" {
+		// try to unmarshal JSON data into NewUserRoleIds
+		err = json.Unmarshal(data, &dst.NewUserRoleIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserRoleIds, return on the first match
+		} else {
 			dst.NewUserRoleIds = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserRoleIds: %s", err.Error())
 		}
-	} else {
-		dst.NewUserRoleIds = nil
 	}
 
-	// try to unmarshal data into NewUserShowDashboardIds
-	err = json.Unmarshal(data, &dst.NewUserShowDashboardIds)
-	if err == nil {
-		jsonNewUserShowDashboardIds, _ := json.Marshal(dst.NewUserShowDashboardIds)
-		if string(jsonNewUserShowDashboardIds) == "{}" { // empty struct
+	// check if the discriminator value is 'NewUserShowDashboardIds'
+	if jsonDict["Id"] == "NewUserShowDashboardIds" {
+		// try to unmarshal JSON data into NewUserShowDashboardIds
+		err = json.Unmarshal(data, &dst.NewUserShowDashboardIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserShowDashboardIds, return on the first match
+		} else {
 			dst.NewUserShowDashboardIds = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserShowDashboardIds: %s", err.Error())
 		}
-	} else {
-		dst.NewUserShowDashboardIds = nil
 	}
 
-	// try to unmarshal data into NewUserShowQueryIds
-	err = json.Unmarshal(data, &dst.NewUserShowQueryIds)
-	if err == nil {
-		jsonNewUserShowQueryIds, _ := json.Marshal(dst.NewUserShowQueryIds)
-		if string(jsonNewUserShowQueryIds) == "{}" { // empty struct
+	// check if the discriminator value is 'NewUserShowQueryIds'
+	if jsonDict["Id"] == "NewUserShowQueryIds" {
+		// try to unmarshal JSON data into NewUserShowQueryIds
+		err = json.Unmarshal(data, &dst.NewUserShowQueryIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserShowQueryIds, return on the first match
+		} else {
 			dst.NewUserShowQueryIds = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserShowQueryIds: %s", err.Error())
 		}
-	} else {
-		dst.NewUserShowQueryIds = nil
 	}
 
-	// try to unmarshal data into NewUserShowSignalIds
-	err = json.Unmarshal(data, &dst.NewUserShowSignalIds)
-	if err == nil {
-		jsonNewUserShowSignalIds, _ := json.Marshal(dst.NewUserShowSignalIds)
-		if string(jsonNewUserShowSignalIds) == "{}" { // empty struct
+	// check if the discriminator value is 'NewUserShowSignalIds'
+	if jsonDict["Id"] == "NewUserShowSignalIds" {
+		// try to unmarshal JSON data into NewUserShowSignalIds
+		err = json.Unmarshal(data, &dst.NewUserShowSignalIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserShowSignalIds, return on the first match
+		} else {
 			dst.NewUserShowSignalIds = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserShowSignalIds: %s", err.Error())
 		}
-	} else {
-		dst.NewUserShowSignalIds = nil
 	}
 
-	// try to unmarshal data into OpenIdConnectAuthority
-	err = json.Unmarshal(data, &dst.OpenIdConnectAuthority)
-	if err == nil {
-		jsonOpenIdConnectAuthority, _ := json.Marshal(dst.OpenIdConnectAuthority)
-		if string(jsonOpenIdConnectAuthority) == "{}" { // empty struct
+	// check if the discriminator value is 'OpenIdConnectAuthority'
+	if jsonDict["Id"] == "OpenIdConnectAuthority" {
+		// try to unmarshal JSON data into OpenIdConnectAuthority
+		err = json.Unmarshal(data, &dst.OpenIdConnectAuthority)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectAuthority, return on the first match
+		} else {
 			dst.OpenIdConnectAuthority = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectAuthority: %s", err.Error())
 		}
-	} else {
-		dst.OpenIdConnectAuthority = nil
 	}
 
-	// try to unmarshal data into OpenIdConnectClientId
-	err = json.Unmarshal(data, &dst.OpenIdConnectClientId)
-	if err == nil {
-		jsonOpenIdConnectClientId, _ := json.Marshal(dst.OpenIdConnectClientId)
-		if string(jsonOpenIdConnectClientId) == "{}" { // empty struct
+	// check if the discriminator value is 'OpenIdConnectClientId'
+	if jsonDict["Id"] == "OpenIdConnectClientId" {
+		// try to unmarshal JSON data into OpenIdConnectClientId
+		err = json.Unmarshal(data, &dst.OpenIdConnectClientId)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectClientId, return on the first match
+		} else {
 			dst.OpenIdConnectClientId = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectClientId: %s", err.Error())
 		}
-	} else {
-		dst.OpenIdConnectClientId = nil
 	}
 
-	// try to unmarshal data into OpenIdConnectClientSecret
-	err = json.Unmarshal(data, &dst.OpenIdConnectClientSecret)
-	if err == nil {
-		jsonOpenIdConnectClientSecret, _ := json.Marshal(dst.OpenIdConnectClientSecret)
-		if string(jsonOpenIdConnectClientSecret) == "{}" { // empty struct
+	// check if the discriminator value is 'OpenIdConnectClientSecret'
+	if jsonDict["Id"] == "OpenIdConnectClientSecret" {
+		// try to unmarshal JSON data into OpenIdConnectClientSecret
+		err = json.Unmarshal(data, &dst.OpenIdConnectClientSecret)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectClientSecret, return on the first match
+		} else {
 			dst.OpenIdConnectClientSecret = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectClientSecret: %s", err.Error())
 		}
-	} else {
-		dst.OpenIdConnectClientSecret = nil
 	}
 
-	// try to unmarshal data into OpenIdConnectEndSessionRedirectUri
-	err = json.Unmarshal(data, &dst.OpenIdConnectEndSessionRedirectUri)
-	if err == nil {
-		jsonOpenIdConnectEndSessionRedirectUri, _ := json.Marshal(dst.OpenIdConnectEndSessionRedirectUri)
-		if string(jsonOpenIdConnectEndSessionRedirectUri) == "{}" { // empty struct
+	// check if the discriminator value is 'OpenIdConnectEndSessionRedirectUri'
+	if jsonDict["Id"] == "OpenIdConnectEndSessionRedirectUri" {
+		// try to unmarshal JSON data into OpenIdConnectEndSessionRedirectUri
+		err = json.Unmarshal(data, &dst.OpenIdConnectEndSessionRedirectUri)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectEndSessionRedirectUri, return on the first match
+		} else {
 			dst.OpenIdConnectEndSessionRedirectUri = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectEndSessionRedirectUri: %s", err.Error())
 		}
-	} else {
-		dst.OpenIdConnectEndSessionRedirectUri = nil
 	}
 
-	// try to unmarshal data into OpenIdConnectScopes
-	err = json.Unmarshal(data, &dst.OpenIdConnectScopes)
-	if err == nil {
-		jsonOpenIdConnectScopes, _ := json.Marshal(dst.OpenIdConnectScopes)
-		if string(jsonOpenIdConnectScopes) == "{}" { // empty struct
+	// check if the discriminator value is 'OpenIdConnectScopes'
+	if jsonDict["Id"] == "OpenIdConnectScopes" {
+		// try to unmarshal JSON data into OpenIdConnectScopes
+		err = json.Unmarshal(data, &dst.OpenIdConnectScopes)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectScopes, return on the first match
+		} else {
 			dst.OpenIdConnectScopes = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectScopes: %s", err.Error())
 		}
-	} else {
-		dst.OpenIdConnectScopes = nil
 	}
 
-	// try to unmarshal data into PasswordRequiredCharacterClasses
-	err = json.Unmarshal(data, &dst.PasswordRequiredCharacterClasses)
-	if err == nil {
-		jsonPasswordRequiredCharacterClasses, _ := json.Marshal(dst.PasswordRequiredCharacterClasses)
-		if string(jsonPasswordRequiredCharacterClasses) == "{}" { // empty struct
+	// check if the discriminator value is 'PasswordRequiredCharacterClasses'
+	if jsonDict["Id"] == "PasswordRequiredCharacterClasses" {
+		// try to unmarshal JSON data into PasswordRequiredCharacterClasses
+		err = json.Unmarshal(data, &dst.PasswordRequiredCharacterClasses)
+		if err == nil {
+			return nil // data stored in dst.PasswordRequiredCharacterClasses, return on the first match
+		} else {
 			dst.PasswordRequiredCharacterClasses = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as PasswordRequiredCharacterClasses: %s", err.Error())
 		}
-	} else {
-		dst.PasswordRequiredCharacterClasses = nil
 	}
 
-	// try to unmarshal data into RawEventMaximumContentLength
-	err = json.Unmarshal(data, &dst.RawEventMaximumContentLength)
-	if err == nil {
-		jsonRawEventMaximumContentLength, _ := json.Marshal(dst.RawEventMaximumContentLength)
-		if string(jsonRawEventMaximumContentLength) == "{}" { // empty struct
+	// check if the discriminator value is 'RawEventMaximumContentLength'
+	if jsonDict["Id"] == "RawEventMaximumContentLength" {
+		// try to unmarshal JSON data into RawEventMaximumContentLength
+		err = json.Unmarshal(data, &dst.RawEventMaximumContentLength)
+		if err == nil {
+			return nil // data stored in dst.RawEventMaximumContentLength, return on the first match
+		} else {
 			dst.RawEventMaximumContentLength = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as RawEventMaximumContentLength: %s", err.Error())
 		}
-	} else {
-		dst.RawEventMaximumContentLength = nil
 	}
 
-	// try to unmarshal data into RawPayloadMaximumContentLength
-	err = json.Unmarshal(data, &dst.RawPayloadMaximumContentLength)
-	if err == nil {
-		jsonRawPayloadMaximumContentLength, _ := json.Marshal(dst.RawPayloadMaximumContentLength)
-		if string(jsonRawPayloadMaximumContentLength) == "{}" { // empty struct
+	// check if the discriminator value is 'RawPayloadMaximumContentLength'
+	if jsonDict["Id"] == "RawPayloadMaximumContentLength" {
+		// try to unmarshal JSON data into RawPayloadMaximumContentLength
+		err = json.Unmarshal(data, &dst.RawPayloadMaximumContentLength)
+		if err == nil {
+			return nil // data stored in dst.RawPayloadMaximumContentLength, return on the first match
+		} else {
 			dst.RawPayloadMaximumContentLength = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as RawPayloadMaximumContentLength: %s", err.Error())
 		}
-	} else {
-		dst.RawPayloadMaximumContentLength = nil
 	}
 
-	// try to unmarshal data into RequireApiKeyForWritingEvents
-	err = json.Unmarshal(data, &dst.RequireApiKeyForWritingEvents)
-	if err == nil {
-		jsonRequireApiKeyForWritingEvents, _ := json.Marshal(dst.RequireApiKeyForWritingEvents)
-		if string(jsonRequireApiKeyForWritingEvents) == "{}" { // empty struct
+	// check if the discriminator value is 'RequireApiKeyForWritingEvents'
+	if jsonDict["Id"] == "RequireApiKeyForWritingEvents" {
+		// try to unmarshal JSON data into RequireApiKeyForWritingEvents
+		err = json.Unmarshal(data, &dst.RequireApiKeyForWritingEvents)
+		if err == nil {
+			return nil // data stored in dst.RequireApiKeyForWritingEvents, return on the first match
+		} else {
 			dst.RequireApiKeyForWritingEvents = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as RequireApiKeyForWritingEvents: %s", err.Error())
 		}
-	} else {
-		dst.RequireApiKeyForWritingEvents = nil
 	}
 
-	// try to unmarshal data into SecretKeyIsBackedUp
-	err = json.Unmarshal(data, &dst.SecretKeyIsBackedUp)
-	if err == nil {
-		jsonSecretKeyIsBackedUp, _ := json.Marshal(dst.SecretKeyIsBackedUp)
-		if string(jsonSecretKeyIsBackedUp) == "{}" { // empty struct
+	// check if the discriminator value is 'SecretKeyIsBackedUp'
+	if jsonDict["Id"] == "SecretKeyIsBackedUp" {
+		// try to unmarshal JSON data into SecretKeyIsBackedUp
+		err = json.Unmarshal(data, &dst.SecretKeyIsBackedUp)
+		if err == nil {
+			return nil // data stored in dst.SecretKeyIsBackedUp, return on the first match
+		} else {
 			dst.SecretKeyIsBackedUp = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as SecretKeyIsBackedUp: %s", err.Error())
 		}
-	} else {
-		dst.SecretKeyIsBackedUp = nil
 	}
 
-	// try to unmarshal data into TelemetryId
-	err = json.Unmarshal(data, &dst.TelemetryId)
-	if err == nil {
-		jsonTelemetryId, _ := json.Marshal(dst.TelemetryId)
-		if string(jsonTelemetryId) == "{}" { // empty struct
+	// check if the discriminator value is 'TelemetryId'
+	if jsonDict["Id"] == "TelemetryId" {
+		// try to unmarshal JSON data into TelemetryId
+		err = json.Unmarshal(data, &dst.TelemetryId)
+		if err == nil {
+			return nil // data stored in dst.TelemetryId, return on the first match
+		} else {
 			dst.TelemetryId = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as TelemetryId: %s", err.Error())
 		}
-	} else {
-		dst.TelemetryId = nil
 	}
 
-	// try to unmarshal data into TelemetryReplyEmail
-	err = json.Unmarshal(data, &dst.TelemetryReplyEmail)
-	if err == nil {
-		jsonTelemetryReplyEmail, _ := json.Marshal(dst.TelemetryReplyEmail)
-		if string(jsonTelemetryReplyEmail) == "{}" { // empty struct
+	// check if the discriminator value is 'TelemetryReplyEmail'
+	if jsonDict["Id"] == "TelemetryReplyEmail" {
+		// try to unmarshal JSON data into TelemetryReplyEmail
+		err = json.Unmarshal(data, &dst.TelemetryReplyEmail)
+		if err == nil {
+			return nil // data stored in dst.TelemetryReplyEmail, return on the first match
+		} else {
 			dst.TelemetryReplyEmail = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as TelemetryReplyEmail: %s", err.Error())
 		}
-	} else {
-		dst.TelemetryReplyEmail = nil
 	}
 
-	// try to unmarshal data into ThemeStyles
-	err = json.Unmarshal(data, &dst.ThemeStyles)
-	if err == nil {
-		jsonThemeStyles, _ := json.Marshal(dst.ThemeStyles)
-		if string(jsonThemeStyles) == "{}" { // empty struct
+	// check if the discriminator value is 'ThemeStyles'
+	if jsonDict["Id"] == "ThemeStyles" {
+		// try to unmarshal JSON data into ThemeStyles
+		err = json.Unmarshal(data, &dst.ThemeStyles)
+		if err == nil {
+			return nil // data stored in dst.ThemeStyles, return on the first match
+		} else {
 			dst.ThemeStyles = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Setting as ThemeStyles: %s", err.Error())
 		}
-	} else {
-		dst.ThemeStyles = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.AuthenticationProvider = nil
-		dst.AutomaticAccessADGroup = nil
-		dst.AutomaticallyProvisionAuthenticatedUsers = nil
-		dst.AzureADAuthority = nil
-		dst.AzureADClientId = nil
-		dst.AzureADClientKey = nil
-		dst.AzureADTenantId = nil
-		dst.BackupLocation = nil
-		dst.BackupUtcTimeOfDay = nil
-		dst.BackupsToKeep = nil
-		dst.CheckForPackageUpdates = nil
-		dst.CheckForUpdates = nil
-		dst.InstanceTitle = nil
-		dst.IsAuthenticationEnabled = nil
-		dst.MEqMTWriteFixAppliedAt = nil
-		dst.MinimumFreeStorageSpace = nil
-		dst.MinimumPasswordLength = nil
-		dst.NewUserRoleIds = nil
-		dst.NewUserShowDashboardIds = nil
-		dst.NewUserShowQueryIds = nil
-		dst.NewUserShowSignalIds = nil
-		dst.OpenIdConnectAuthority = nil
-		dst.OpenIdConnectClientId = nil
-		dst.OpenIdConnectClientSecret = nil
-		dst.OpenIdConnectEndSessionRedirectUri = nil
-		dst.OpenIdConnectScopes = nil
-		dst.PasswordRequiredCharacterClasses = nil
-		dst.RawEventMaximumContentLength = nil
-		dst.RawPayloadMaximumContentLength = nil
-		dst.RequireApiKeyForWritingEvents = nil
-		dst.SecretKeyIsBackedUp = nil
-		dst.TelemetryId = nil
-		dst.TelemetryReplyEmail = nil
-		dst.ThemeStyles = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(Setting)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(Setting)")
+	// check if the discriminator value is 'setting-authenticationprovider'
+	if jsonDict["Id"] == "setting-authenticationprovider" {
+		// try to unmarshal JSON data into AuthenticationProvider
+		err = json.Unmarshal(data, &dst.AuthenticationProvider)
+		if err == nil {
+			return nil // data stored in dst.AuthenticationProvider, return on the first match
+		} else {
+			dst.AuthenticationProvider = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AuthenticationProvider: %s", err.Error())
+		}
 	}
+
+	// check if the discriminator value is 'setting-automaticaccessadgroup'
+	if jsonDict["Id"] == "setting-automaticaccessadgroup" {
+		// try to unmarshal JSON data into AutomaticAccessADGroup
+		err = json.Unmarshal(data, &dst.AutomaticAccessADGroup)
+		if err == nil {
+			return nil // data stored in dst.AutomaticAccessADGroup, return on the first match
+		} else {
+			dst.AutomaticAccessADGroup = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AutomaticAccessADGroup: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-automaticallyprovisionauthenticatedusers'
+	if jsonDict["Id"] == "setting-automaticallyprovisionauthenticatedusers" {
+		// try to unmarshal JSON data into AutomaticallyProvisionAuthenticatedUsers
+		err = json.Unmarshal(data, &dst.AutomaticallyProvisionAuthenticatedUsers)
+		if err == nil {
+			return nil // data stored in dst.AutomaticallyProvisionAuthenticatedUsers, return on the first match
+		} else {
+			dst.AutomaticallyProvisionAuthenticatedUsers = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AutomaticallyProvisionAuthenticatedUsers: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-azureadauthority'
+	if jsonDict["Id"] == "setting-azureadauthority" {
+		// try to unmarshal JSON data into AzureADAuthority
+		err = json.Unmarshal(data, &dst.AzureADAuthority)
+		if err == nil {
+			return nil // data stored in dst.AzureADAuthority, return on the first match
+		} else {
+			dst.AzureADAuthority = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADAuthority: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-azureadclientid'
+	if jsonDict["Id"] == "setting-azureadclientid" {
+		// try to unmarshal JSON data into AzureADClientId
+		err = json.Unmarshal(data, &dst.AzureADClientId)
+		if err == nil {
+			return nil // data stored in dst.AzureADClientId, return on the first match
+		} else {
+			dst.AzureADClientId = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADClientId: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-azureadclientkey'
+	if jsonDict["Id"] == "setting-azureadclientkey" {
+		// try to unmarshal JSON data into AzureADClientKey
+		err = json.Unmarshal(data, &dst.AzureADClientKey)
+		if err == nil {
+			return nil // data stored in dst.AzureADClientKey, return on the first match
+		} else {
+			dst.AzureADClientKey = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADClientKey: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-azureadtenantid'
+	if jsonDict["Id"] == "setting-azureadtenantid" {
+		// try to unmarshal JSON data into AzureADTenantId
+		err = json.Unmarshal(data, &dst.AzureADTenantId)
+		if err == nil {
+			return nil // data stored in dst.AzureADTenantId, return on the first match
+		} else {
+			dst.AzureADTenantId = nil
+			return fmt.Errorf("Failed to unmarshal Setting as AzureADTenantId: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-backuplocation'
+	if jsonDict["Id"] == "setting-backuplocation" {
+		// try to unmarshal JSON data into BackupLocation
+		err = json.Unmarshal(data, &dst.BackupLocation)
+		if err == nil {
+			return nil // data stored in dst.BackupLocation, return on the first match
+		} else {
+			dst.BackupLocation = nil
+			return fmt.Errorf("Failed to unmarshal Setting as BackupLocation: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-backupstokeep'
+	if jsonDict["Id"] == "setting-backupstokeep" {
+		// try to unmarshal JSON data into BackupsToKeep
+		err = json.Unmarshal(data, &dst.BackupsToKeep)
+		if err == nil {
+			return nil // data stored in dst.BackupsToKeep, return on the first match
+		} else {
+			dst.BackupsToKeep = nil
+			return fmt.Errorf("Failed to unmarshal Setting as BackupsToKeep: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-backuputctimeofday'
+	if jsonDict["Id"] == "setting-backuputctimeofday" {
+		// try to unmarshal JSON data into BackupUtcTimeOfDay
+		err = json.Unmarshal(data, &dst.BackupUtcTimeOfDay)
+		if err == nil {
+			return nil // data stored in dst.BackupUtcTimeOfDay, return on the first match
+		} else {
+			dst.BackupUtcTimeOfDay = nil
+			return fmt.Errorf("Failed to unmarshal Setting as BackupUtcTimeOfDay: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-checkforpackageupdates'
+	if jsonDict["Id"] == "setting-checkforpackageupdates" {
+		// try to unmarshal JSON data into CheckForPackageUpdates
+		err = json.Unmarshal(data, &dst.CheckForPackageUpdates)
+		if err == nil {
+			return nil // data stored in dst.CheckForPackageUpdates, return on the first match
+		} else {
+			dst.CheckForPackageUpdates = nil
+			return fmt.Errorf("Failed to unmarshal Setting as CheckForPackageUpdates: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-checkforupdates'
+	if jsonDict["Id"] == "setting-checkforupdates" {
+		// try to unmarshal JSON data into CheckForUpdates
+		err = json.Unmarshal(data, &dst.CheckForUpdates)
+		if err == nil {
+			return nil // data stored in dst.CheckForUpdates, return on the first match
+		} else {
+			dst.CheckForUpdates = nil
+			return fmt.Errorf("Failed to unmarshal Setting as CheckForUpdates: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-instancetitle'
+	if jsonDict["Id"] == "setting-instancetitle" {
+		// try to unmarshal JSON data into InstanceTitle
+		err = json.Unmarshal(data, &dst.InstanceTitle)
+		if err == nil {
+			return nil // data stored in dst.InstanceTitle, return on the first match
+		} else {
+			dst.InstanceTitle = nil
+			return fmt.Errorf("Failed to unmarshal Setting as InstanceTitle: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-isauthenticationenabled'
+	if jsonDict["Id"] == "setting-isauthenticationenabled" {
+		// try to unmarshal JSON data into IsAuthenticationEnabled
+		err = json.Unmarshal(data, &dst.IsAuthenticationEnabled)
+		if err == nil {
+			return nil // data stored in dst.IsAuthenticationEnabled, return on the first match
+		} else {
+			dst.IsAuthenticationEnabled = nil
+			return fmt.Errorf("Failed to unmarshal Setting as IsAuthenticationEnabled: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-minimumfreestoragespace'
+	if jsonDict["Id"] == "setting-minimumfreestoragespace" {
+		// try to unmarshal JSON data into MinimumFreeStorageSpace
+		err = json.Unmarshal(data, &dst.MinimumFreeStorageSpace)
+		if err == nil {
+			return nil // data stored in dst.MinimumFreeStorageSpace, return on the first match
+		} else {
+			dst.MinimumFreeStorageSpace = nil
+			return fmt.Errorf("Failed to unmarshal Setting as MinimumFreeStorageSpace: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-minimumpasswordlength'
+	if jsonDict["Id"] == "setting-minimumpasswordlength" {
+		// try to unmarshal JSON data into MinimumPasswordLength
+		err = json.Unmarshal(data, &dst.MinimumPasswordLength)
+		if err == nil {
+			return nil // data stored in dst.MinimumPasswordLength, return on the first match
+		} else {
+			dst.MinimumPasswordLength = nil
+			return fmt.Errorf("Failed to unmarshal Setting as MinimumPasswordLength: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-newuserroleids'
+	if jsonDict["Id"] == "setting-newuserroleids" {
+		// try to unmarshal JSON data into NewUserRoleIds
+		err = json.Unmarshal(data, &dst.NewUserRoleIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserRoleIds, return on the first match
+		} else {
+			dst.NewUserRoleIds = nil
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserRoleIds: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-newusershowdashboardids'
+	if jsonDict["Id"] == "setting-newusershowdashboardids" {
+		// try to unmarshal JSON data into NewUserShowDashboardIds
+		err = json.Unmarshal(data, &dst.NewUserShowDashboardIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserShowDashboardIds, return on the first match
+		} else {
+			dst.NewUserShowDashboardIds = nil
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserShowDashboardIds: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-newusershowqueryids'
+	if jsonDict["Id"] == "setting-newusershowqueryids" {
+		// try to unmarshal JSON data into NewUserShowQueryIds
+		err = json.Unmarshal(data, &dst.NewUserShowQueryIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserShowQueryIds, return on the first match
+		} else {
+			dst.NewUserShowQueryIds = nil
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserShowQueryIds: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-newusershowsignalids'
+	if jsonDict["Id"] == "setting-newusershowsignalids" {
+		// try to unmarshal JSON data into NewUserShowSignalIds
+		err = json.Unmarshal(data, &dst.NewUserShowSignalIds)
+		if err == nil {
+			return nil // data stored in dst.NewUserShowSignalIds, return on the first match
+		} else {
+			dst.NewUserShowSignalIds = nil
+			return fmt.Errorf("Failed to unmarshal Setting as NewUserShowSignalIds: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-openidconnectauthority'
+	if jsonDict["Id"] == "setting-openidconnectauthority" {
+		// try to unmarshal JSON data into OpenIdConnectAuthority
+		err = json.Unmarshal(data, &dst.OpenIdConnectAuthority)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectAuthority, return on the first match
+		} else {
+			dst.OpenIdConnectAuthority = nil
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectAuthority: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-openidconnectclientid'
+	if jsonDict["Id"] == "setting-openidconnectclientid" {
+		// try to unmarshal JSON data into OpenIdConnectClientId
+		err = json.Unmarshal(data, &dst.OpenIdConnectClientId)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectClientId, return on the first match
+		} else {
+			dst.OpenIdConnectClientId = nil
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectClientId: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-openidconnectclientsecret'
+	if jsonDict["Id"] == "setting-openidconnectclientsecret" {
+		// try to unmarshal JSON data into OpenIdConnectClientSecret
+		err = json.Unmarshal(data, &dst.OpenIdConnectClientSecret)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectClientSecret, return on the first match
+		} else {
+			dst.OpenIdConnectClientSecret = nil
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectClientSecret: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-openidconnectendsessionredirecturi'
+	if jsonDict["Id"] == "setting-openidconnectendsessionredirecturi" {
+		// try to unmarshal JSON data into OpenIdConnectEndSessionRedirectUri
+		err = json.Unmarshal(data, &dst.OpenIdConnectEndSessionRedirectUri)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectEndSessionRedirectUri, return on the first match
+		} else {
+			dst.OpenIdConnectEndSessionRedirectUri = nil
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectEndSessionRedirectUri: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-openidconnectscopes'
+	if jsonDict["Id"] == "setting-openidconnectscopes" {
+		// try to unmarshal JSON data into OpenIdConnectScopes
+		err = json.Unmarshal(data, &dst.OpenIdConnectScopes)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectScopes, return on the first match
+		} else {
+			dst.OpenIdConnectScopes = nil
+			return fmt.Errorf("Failed to unmarshal Setting as OpenIdConnectScopes: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-passwordrequiredcharacterclasses'
+	if jsonDict["Id"] == "setting-passwordrequiredcharacterclasses" {
+		// try to unmarshal JSON data into PasswordRequiredCharacterClasses
+		err = json.Unmarshal(data, &dst.PasswordRequiredCharacterClasses)
+		if err == nil {
+			return nil // data stored in dst.PasswordRequiredCharacterClasses, return on the first match
+		} else {
+			dst.PasswordRequiredCharacterClasses = nil
+			return fmt.Errorf("Failed to unmarshal Setting as PasswordRequiredCharacterClasses: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-raweventmaximumcontentlength'
+	if jsonDict["Id"] == "setting-raweventmaximumcontentlength" {
+		// try to unmarshal JSON data into RawEventMaximumContentLength
+		err = json.Unmarshal(data, &dst.RawEventMaximumContentLength)
+		if err == nil {
+			return nil // data stored in dst.RawEventMaximumContentLength, return on the first match
+		} else {
+			dst.RawEventMaximumContentLength = nil
+			return fmt.Errorf("Failed to unmarshal Setting as RawEventMaximumContentLength: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-rawpayloadmaximumcontentlength'
+	if jsonDict["Id"] == "setting-rawpayloadmaximumcontentlength" {
+		// try to unmarshal JSON data into RawPayloadMaximumContentLength
+		err = json.Unmarshal(data, &dst.RawPayloadMaximumContentLength)
+		if err == nil {
+			return nil // data stored in dst.RawPayloadMaximumContentLength, return on the first match
+		} else {
+			dst.RawPayloadMaximumContentLength = nil
+			return fmt.Errorf("Failed to unmarshal Setting as RawPayloadMaximumContentLength: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-requireapikeyforwritingevents'
+	if jsonDict["Id"] == "setting-requireapikeyforwritingevents" {
+		// try to unmarshal JSON data into RequireApiKeyForWritingEvents
+		err = json.Unmarshal(data, &dst.RequireApiKeyForWritingEvents)
+		if err == nil {
+			return nil // data stored in dst.RequireApiKeyForWritingEvents, return on the first match
+		} else {
+			dst.RequireApiKeyForWritingEvents = nil
+			return fmt.Errorf("Failed to unmarshal Setting as RequireApiKeyForWritingEvents: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-secretkeyisbackedup'
+	if jsonDict["Id"] == "setting-secretkeyisbackedup" {
+		// try to unmarshal JSON data into SecretKeyIsBackedUp
+		err = json.Unmarshal(data, &dst.SecretKeyIsBackedUp)
+		if err == nil {
+			return nil // data stored in dst.SecretKeyIsBackedUp, return on the first match
+		} else {
+			dst.SecretKeyIsBackedUp = nil
+			return fmt.Errorf("Failed to unmarshal Setting as SecretKeyIsBackedUp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-telemetryid'
+	if jsonDict["Id"] == "setting-telemetryid" {
+		// try to unmarshal JSON data into TelemetryId
+		err = json.Unmarshal(data, &dst.TelemetryId)
+		if err == nil {
+			return nil // data stored in dst.TelemetryId, return on the first match
+		} else {
+			dst.TelemetryId = nil
+			return fmt.Errorf("Failed to unmarshal Setting as TelemetryId: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-telemetryreplyemail'
+	if jsonDict["Id"] == "setting-telemetryreplyemail" {
+		// try to unmarshal JSON data into TelemetryReplyEmail
+		err = json.Unmarshal(data, &dst.TelemetryReplyEmail)
+		if err == nil {
+			return nil // data stored in dst.TelemetryReplyEmail, return on the first match
+		} else {
+			dst.TelemetryReplyEmail = nil
+			return fmt.Errorf("Failed to unmarshal Setting as TelemetryReplyEmail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'setting-themestyles'
+	if jsonDict["Id"] == "setting-themestyles" {
+		// try to unmarshal JSON data into ThemeStyles
+		err = json.Unmarshal(data, &dst.ThemeStyles)
+		if err == nil {
+			return nil // data stored in dst.ThemeStyles, return on the first match
+		} else {
+			dst.ThemeStyles = nil
+			return fmt.Errorf("Failed to unmarshal Setting as ThemeStyles: %s", err.Error())
+		}
+	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
