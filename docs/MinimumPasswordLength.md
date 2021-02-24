@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
 **Value** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
 ### NewMinimumPasswordLength
 
-`func NewMinimumPasswordLength() *MinimumPasswordLength`
+`func NewMinimumPasswordLength(id string, name string, ) *MinimumPasswordLength`
 
 NewMinimumPasswordLength instantiates a new MinimumPasswordLength object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MinimumPasswordLength) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *MinimumPasswordLength) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetValue
 
