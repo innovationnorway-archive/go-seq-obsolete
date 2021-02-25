@@ -16,7 +16,7 @@ import (
 
 // License struct for License
 type License struct {
-	LicenceText *string `json:"LicenceText,omitempty"`
+	LicenseText string `json:"LicenseText"`
 	IsValid *bool `json:"IsValid,omitempty"`
 	IsSingleUser *bool `json:"IsSingleUser,omitempty"`
 	SubscriptionId *string `json:"SubscriptionId,omitempty"`
@@ -32,8 +32,9 @@ type License struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicense() *License {
+func NewLicense(licenseText string, ) *License {
 	this := License{}
+	this.LicenseText = licenseText
 	return &this
 }
 
@@ -45,36 +46,28 @@ func NewLicenseWithDefaults() *License {
 	return &this
 }
 
-// GetLicenceText returns the LicenceText field value if set, zero value otherwise.
-func (o *License) GetLicenceText() string {
-	if o == nil || o.LicenceText == nil {
+// GetLicenseText returns the LicenseText field value
+func (o *License) GetLicenseText() string {
+	if o == nil  {
 		var ret string
 		return ret
 	}
-	return *o.LicenceText
+
+	return o.LicenseText
 }
 
-// GetLicenceTextOk returns a tuple with the LicenceText field value if set, nil otherwise
+// GetLicenseTextOk returns a tuple with the LicenseText field value
 // and a boolean to check if the value has been set.
-func (o *License) GetLicenceTextOk() (*string, bool) {
-	if o == nil || o.LicenceText == nil {
+func (o *License) GetLicenseTextOk() (*string, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return o.LicenceText, true
+	return &o.LicenseText, true
 }
 
-// HasLicenceText returns a boolean if a field has been set.
-func (o *License) HasLicenceText() bool {
-	if o != nil && o.LicenceText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLicenceText gets a reference to the given string and assigns it to the LicenceText field.
-func (o *License) SetLicenceText(v string) {
-	o.LicenceText = &v
+// SetLicenseText sets field value
+func (o *License) SetLicenseText(v string) {
+	o.LicenseText = v
 }
 
 // GetIsValid returns the IsValid field value if set, zero value otherwise.
@@ -367,8 +360,8 @@ func (o *License) SetId(v string) {
 
 func (o License) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LicenceText != nil {
-		toSerialize["LicenceText"] = o.LicenceText
+	if true {
+		toSerialize["LicenseText"] = o.LicenseText
 	}
 	if o.IsValid != nil {
 		toSerialize["IsValid"] = o.IsValid
