@@ -250,6 +250,15 @@ paths:
           description: Not Found
       tags:
         - licenses
+  /api/licenses/downgrade:
+    post:
+      summary: Remove the current license, causing the server to fall back to the default configuration.
+      operationId: downgradeLicense
+      responses:
+        "200":
+          description: OK
+      tags:
+        - licenses
 
 components:
   schemas:
