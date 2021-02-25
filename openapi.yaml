@@ -14,6 +14,7 @@ tags:
   - name: apikeys
   - name: settings
   - name: licenses
+  - name: users
 
 paths:
   # apikeys
@@ -259,6 +260,126 @@ paths:
           description: OK
       tags:
         - licenses
+
+  # users
+  /api/users/:
+    get:
+      summary: Retrieve users
+      operationId: listUsers
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+      tags:
+        - users
+    post:
+      summary: Add a new user
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - users
+  /api/users/{id}:
+    parameters:
+      - name: id
+        description: The id of the user
+        in: path
+        schema:
+          type: string
+        required: true
+    delete:
+      summary: Remove an existing user
+      operationId: deleteUser
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      tags:
+        - users
+    get:
+      summary: Retrieve the user with the given id
+      operationId: getUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - users
+    put:
+      summary: Update an existing user
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not Found
+      tags:
+        - users
+  /api/users/current:
+    get:
+      summary: Retrieve the current logged-in user
+      operationId: getCurrentUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      tags:
+        - users
 
 components:
   schemas:
@@ -939,6 +1060,43 @@ components:
           readOnly: true
       required:
         - LicenseText
+
+    # users
+    User:
+      properties:
+        Id:
+          type: string
+        Username:
+          type: string
+        NewPassword:
+          type: string
+        MustChangePassword:
+          type: boolean
+        DisplayName:
+          type: string
+        EmailAddress:
+          type: string
+        Preferences:
+          properties:
+            DefaultWorkspaceId:
+              type: string
+        RoleIds:
+          type: array
+          items:
+            type: string
+            enum:
+              - role-administrator
+              - role-ro
+              - role-rw
+              - role-user
+        ViewFilter:
+          properties:
+            Filter:
+              type: string
+            FilterNonStrict:
+              type: string
+      required:
+        - Username
 
   securitySchemes:
     ApiKeyAuth:
