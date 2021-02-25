@@ -908,7 +908,7 @@ components:
     # licenses
     License:
       properties:
-        LicenceText:
+        LicenseText:
           type: string
         IsValid:
           type: boolean

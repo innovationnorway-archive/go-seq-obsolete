@@ -215,7 +215,7 @@ import (
 
 func main() {
     id := "id_example" // string | The id of the license
-    license := *openapiclient.NewLicense() // License |  (optional)
+    license := *openapiclient.NewLicense("LicenseText_example") // License |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

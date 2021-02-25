@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LicenceText** | Pointer to **string** |  | [optional] 
+**LicenseText** | **string** |  | 
 **IsValid** | Pointer to **bool** |  | [optional] [readonly] 
 **IsSingleUser** | Pointer to **bool** |  | [optional] [readonly] 
 **SubscriptionId** | Pointer to **string** |  | [optional] [readonly] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewLicense
 
-`func NewLicense() *License`
+`func NewLicense(licenseText string, ) *License`
 
 NewLicense instantiates a new License object
 This constructor will assign default values to properties that have it defined,
@@ -34,30 +34,25 @@ NewLicenseWithDefaults instantiates a new License object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLicenceText
+### GetLicenseText
 
-`func (o *License) GetLicenceText() string`
+`func (o *License) GetLicenseText() string`
 
-GetLicenceText returns the LicenceText field if non-nil, zero value otherwise.
+GetLicenseText returns the LicenseText field if non-nil, zero value otherwise.
 
-### GetLicenceTextOk
+### GetLicenseTextOk
 
-`func (o *License) GetLicenceTextOk() (*string, bool)`
+`func (o *License) GetLicenseTextOk() (*string, bool)`
 
-GetLicenceTextOk returns a tuple with the LicenceText field if it's non-nil, zero value otherwise
+GetLicenseTextOk returns a tuple with the LicenseText field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLicenceText
+### SetLicenseText
 
-`func (o *License) SetLicenceText(v string)`
+`func (o *License) SetLicenseText(v string)`
 
-SetLicenceText sets LicenceText field to given value.
+SetLicenseText sets LicenseText field to given value.
 
-### HasLicenceText
-
-`func (o *License) HasLicenceText() bool`
-
-HasLicenceText returns a boolean if a field has been set.
 
 ### GetIsValid
 
